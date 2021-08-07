@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-todo-input-add-itens',
@@ -10,6 +10,21 @@ export class TodoInputAddItensComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  @Output() public emitItemTaskList = new EventEmitter();
+
+  public addItemTaskList: string = "";
+
+  public submitItemTaskList(){
+    //Removendo os espaços do começo e fim. EX: "  HUMBERTO "
+    this.addItemTaskList = this.addItemTaskList.trim()
+
+    if(this.addItemTaskList){
+      this.emitItemTaskList.emit(this.addItemTaskList);
+      this.addItemTaskList = "";
+    }
+
   }
 
 }
